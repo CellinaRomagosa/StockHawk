@@ -71,7 +71,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     isConnected = activeNetwork != null &&
         activeNetwork.isConnectedOrConnecting();
     setContentView(R.layout.activity_my_stocks);
-      snackbar =  Snackbar.make( findViewById(R.id.coordinator), R.string.no_connection, Snackbar.LENGTH_INDEFINITE );
+    snackbar =  Snackbar.make( findViewById(R.id.coordinator), R.string.no_connection, Snackbar.LENGTH_INDEFINITE );
     snackbar.setActionTextColor(getResources().getColor(R.color.material_red_700));
     // The intent service is for executing immediate pulls from the Yahoo API
     // GCMTaskService can only schedule tasks, they cannot execute immediately
@@ -95,8 +95,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
             new RecyclerViewItemClickListener.OnItemClickListener() {
               @Override public void onItemClick(View v, int position) {
-                //todo
                 TextView textView = (TextView) v.findViewById(R.id.stock_symbol);
+                textView.setContentDescription("See chart for stock" + textView.getText().toString());
                 goToStockGraph( textView.getText().toString() );
               }
             }));

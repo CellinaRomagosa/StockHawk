@@ -45,13 +45,12 @@ public class GraphStock extends Activity {
 
     int i=0;
     for (Quote data : quotes) {
-      // turn your data into Entry objects
       entries.add(new Entry(i, data.getClose()));
       i++;
     }
-    LineDataSet dataSet = new LineDataSet(entries, "Days"); // add entries to dataset
+    LineDataSet dataSet = new LineDataSet(entries, "Days");
     dataSet.setColor(R.color.material_blue_500);
-    dataSet.setValueTextColor(R.color.material_blue_600); // styling, ...
+    dataSet.setValueTextColor(R.color.material_blue_600);
 
     LineData lineData = new LineData(dataSet);
     chart.setData(lineData);
