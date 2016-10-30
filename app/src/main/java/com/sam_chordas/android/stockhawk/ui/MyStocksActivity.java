@@ -55,6 +55,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   private Cursor mCursor;
   boolean isConnected;
   private Snackbar snackbar;
+  private RecyclerView recyclerView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         // todo change also screen
       }
     }
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+     recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
@@ -174,7 +175,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
   public void networkToast(){
   //  Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
-
+    if ( mCursorAdapter!= null && mCursorAdapter.getItemCount() > 0){
+      snackbar.setText(R.string.not_possible_to_update);
+    }
     snackbar.show();
 
   }
