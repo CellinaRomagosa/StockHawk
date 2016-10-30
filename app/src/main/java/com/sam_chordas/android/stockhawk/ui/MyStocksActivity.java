@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -36,6 +37,8 @@ import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.sam_chordas.android.stockhawk.service.StockIntentService;
 import com.sam_chordas.android.stockhawk.service.StockTaskService;
 import com.sam_chordas.android.stockhawk.touch_helper.SimpleItemTouchHelperCallback;
+
+import static com.sam_chordas.android.stockhawk.ui.GraphStock.STOCK_KEY;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -82,7 +85,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
       } else{
         networkToast();
-        // todo change also screen
       }
     }
      recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -93,8 +95,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
             new RecyclerViewItemClickListener.OnItemClickListener() {
               @Override public void onItemClick(View v, int position) {
-                //TODO:
-                // do something on item click
+                //todo
+                TextView textView = (TextView) v.findViewById(R.id.stock_symbol);
+                goToStockGraph( textView.getText().toString() );
               }
             }));
     recyclerView.setAdapter(mCursorAdapter);
@@ -166,6 +169,12 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     }
   }
 
+  private void goToStockGraph(String stockGraph){
+    Intent intent = new Intent(getBaseContext(), GraphStock.class);
+    intent.putExtra(STOCK_KEY, stockGraph);
+    this.startActivity(intent);
+  }
+
 
   @Override
   public void onResume() {
@@ -177,6 +186,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
   //  Toast.makeText(mContext, getString(R.string.network_toast), Toast.LENGTH_SHORT).show();
     if ( mCursorAdapter!= null && mCursorAdapter.getItemCount() > 0){
       snackbar.setText(R.string.not_possible_to_update);
+    }
+    else {
+      snackbar.setText(R.string.no_connection);
+
     }
     snackbar.show();
 
