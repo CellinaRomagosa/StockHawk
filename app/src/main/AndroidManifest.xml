@@ -16,7 +16,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:supportsRtl="true">
         <activity
             android:name=".ui.MyStocksActivity"
             android:label="@string/app_name">
@@ -40,7 +41,7 @@
         <provider
             android:name=".data.generated.QuoteProvider"
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
-            android:exported="false"/>
+            android:exported="true"/>
 
         <receiver android:name="com.example.sam_chordas.stockhawk.StockWidget">
             <intent-filter>
@@ -56,6 +57,11 @@
             android:name=".ui.GraphStock"
             android:label="@string/title_activity_graph_stock">
         </activity>
+
+
+        <service
+            android:name="com.example.sam_chordas.stockhawk.ListViewRemoteService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

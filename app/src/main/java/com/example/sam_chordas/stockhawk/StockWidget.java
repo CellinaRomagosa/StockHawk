@@ -3,6 +3,8 @@ package com.example.sam_chordas.stockhawk;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.sam_chordas.android.stockhawk.R;
@@ -15,13 +17,16 @@ public class StockWidget extends AppWidgetProvider {
   static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                               int appWidgetId) {
 
-    CharSequence widgetText = context.getString(R.string.appwidget_text);
     // Construct the RemoteViews object
+    final Intent intent = new Intent(context, ListViewRemoteService.class);
+
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.stock_widget);
-    views.setTextViewText(R.id.appwidget_text, widgetText);
+    views.setRemoteAdapter(R.id.widgetListView, intent);
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views);
+    Log.d(StockWidget.class.getName(), "updating widget");
+
   }
 
   @Override

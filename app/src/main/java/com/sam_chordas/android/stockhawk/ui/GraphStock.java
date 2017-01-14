@@ -44,17 +44,20 @@ public class GraphStock extends Activity {
     List<Entry> entries = new ArrayList<Entry>();
 
     int i=0;
-    for (Quote data : quotes) {
-      entries.add(new Entry(i, data.getClose()));
-      i++;
-    }
-    LineDataSet dataSet = new LineDataSet(entries, "Days");
-    dataSet.setColor(R.color.material_blue_500);
-    dataSet.setValueTextColor(R.color.material_blue_600);
+    if (quotes != null){
+      for (Quote data : quotes) {
+        entries.add(new Entry(i, data.getClose()));
+        i++;
+      }
+      LineDataSet dataSet = new LineDataSet(entries, "Days");
+      dataSet.setColor(R.color.material_blue_500);
+      dataSet.setValueTextColor(R.color.material_blue_600);
 
-    LineData lineData = new LineData(dataSet);
-    chart.setData(lineData);
-    chart.invalidate(); // refresh
+      LineData lineData = new LineData(dataSet);
+      chart.setData(lineData);
+      chart.invalidate(); // refresh
+    }
+
   }
 
 }
